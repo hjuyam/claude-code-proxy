@@ -1,16 +1,10 @@
 {
   "version": 2,
   "functions": {
-    "server.py": {
+    "api/server.py": {
       "runtime": "python@3.12.3",
       "memory": 128,
       "maxDuration": 60
     }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/server.py"
-    }
-  ]
+  }
 }
