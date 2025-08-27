@@ -14,6 +14,11 @@ from dotenv import load_dotenv
 import re
 from datetime import datetime
 import sys
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(429, _rate_limit_exceeded_handler)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -1085,6 +1090,7 @@ async def handle_streaming(response_generator, original_request: MessagesRequest
         # Send final [DONE] marker
         yield "data: [DONE]\n\n"
 
+@limiter.limit("10/minute")
 @app.post("/v1/messages")
 async def create_message(
     request: MessagesRequest,
