@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "server.py": {
+      "runtime": "python@3.12.3",
+      "memory": 128,
+      "maxDuration": 60
+    }
+  }
+}
